@@ -1,0 +1,40 @@
+{
+  "Server": {
+    "BindAddress": "0.0.0.0",
+    "Port": 8080,
+    "TlsEnabled": false,
+    "HealthHost": "",
+    "KeyStorePath": "",
+    "KeyStorePassword": "",
+    "ImagesDirectory": "data/questions"
+  },
+  "Database": {
+    "Host": "127.0.0.1",
+    "Port": 3306,
+    "Name": "enterprisetesterdb",
+    "User": "root",
+    "Password": "",
+    "SslMode": "Preferred",
+    "CaCertificatePath": "",
+    "AllowInsecureRemote": false,
+    "LocalServiceName": "",
+    "TryStartLocalService": true
+  },
+  "Runtime": {
+    "BackendJar": "backend/EnterpriseTester.jar",
+    "JavaExecutable": "",
+    "AutoDownloadJava": true,
+    "StartupTimeoutSeconds": 90,
+    "ShutdownTimeoutSeconds": 25,
+    "MinHeapMb": 128,
+    "MaxHeapMb": 768,
+    "MaxRestarts": 0,
+    "RestartDelaySeconds": 5
+  },
+  "Testing": {
+    "DefaultQuestionsCount": 20,
+    "ShowCountdown": true,
+    "EnableTimeLimit": true,
+    "MultiAnswerMode": "PARTIAL"
+  }
+}

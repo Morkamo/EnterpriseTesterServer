@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+.idea/
+artifacts/
+runtime/
+logs/
+data/
+backend/*.jar
+backend/backend.json
+config/server.json
+config/*.p12
+config/*.pfx
+*.log
