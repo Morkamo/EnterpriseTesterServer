@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
     <ProjectReference Include="..\EnterpriseTester.ServerCore\EnterpriseTester.ServerCore.csproj" />
   </ItemGroup>
@@ -17,5 +16,4 @@
     <Version>1.0.0</Version>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
-
 </Project>

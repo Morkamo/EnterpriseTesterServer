@@ -1,0 +1,25 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{xml,csproj,props,targets,json}]
+indent_size = 2
+
+[*.cs]
+csharp_new_line_before_open_brace = all
+csharp_preserve_single_line_blocks = false
+csharp_preserve_single_line_statements = false
+
+[*.bat]
+end_of_line = crlf
+
+[*.sh]
+end_of_line = lf
+
+[*.md]
+trim_trailing_whitespace = false
