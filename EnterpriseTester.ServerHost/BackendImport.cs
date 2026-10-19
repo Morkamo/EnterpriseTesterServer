@@ -65,10 +65,20 @@ internal static class BackendImport
 
     public static void Verify(string root, string jar)
     {
+        if (!File.Exists(jar))
+            throw new FileNotFoundException(
+                "Не найден backend JAR: "
+                    + jar
+                    + ". Git не содержит исполняемый backend. Скопируйте backend/EnterpriseTester.jar"
+                    + " из соответствующего готового пакета сервера; backend/backend.json содержит его контрольную сумму."
+                    + " Для собственного JAR выполните import-backend --source файл.jar.",
+                jar
+            );
         var manifest = Path.Combine(root, "backend", "backend.json");
         if (!File.Exists(manifest))
             throw new InvalidOperationException(
-                "Нет backend/backend.json. Выполните import-backend."
+                "Нет backend/backend.json. Получите его из репозитория или вместе с EnterpriseTester.jar"
+                    + " из готового пакета. Для собственного JAR выполните import-backend --source файл.jar."
             );
         using var json = JsonDocument.Parse(File.ReadAllText(manifest));
         if (

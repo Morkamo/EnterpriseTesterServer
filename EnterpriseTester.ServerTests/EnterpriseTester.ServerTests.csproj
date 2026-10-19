@@ -19,5 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EnterpriseTester.ServerCore\EnterpriseTester.ServerCore.csproj" />
+    <ProjectReference Include="..\EnterpriseTester.ServerHost\EnterpriseTester.ServerHost.csproj" />
   </ItemGroup>
 </Project>

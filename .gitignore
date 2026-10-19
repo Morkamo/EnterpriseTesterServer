@@ -5,8 +5,9 @@ artifacts/
 runtime/
 logs/
 data/
-backend/*.jar
-backend/backend.json
+backend/*
+!backend/backend.json
+!backend/README.md
 config/server.json
 config/*.p12
 config/*.pfx

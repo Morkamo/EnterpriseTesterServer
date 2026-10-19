@@ -25,7 +25,7 @@ try
     {
         Console.WriteLine(
             "start | configure | create-config | setup-local | doctor | status | stop | install-java"
-                + " | import-backend --source file.jar\n"
+                + " | verify-backend | import-backend --source file.jar\n"
                 + "Параметры: --root folder --config file --non-interactive"
         );
         return 0;
@@ -37,6 +37,17 @@ try
             Value("--source") ?? throw new ArgumentException("Укажите --source JAR.")
         );
         Console.WriteLine("Backend импортирован; встроенные параметры БД очищены.");
+        return 0;
+    }
+    if (command == "verify-backend")
+    {
+        var jar = File.Exists(configPath)
+            ? ServerConfig.Load(configPath).Runtime.BackendJar
+            : new RuntimeConfig().BackendJar;
+        BackendImport.Verify(root, ServerPaths.Resolve(root, jar));
+        Console.WriteLine(
+            "Backend найден; контрольная сумма совпадает. Подключение к БД не требуется."
+        );
         return 0;
     }
     if (command is "create-config" or "setup-local")
