@@ -18,14 +18,13 @@ foreach ($rid in $Runtimes) {
     if ($LASTEXITCODE -ne 0) {
         throw "Publish failed: $rid"
     }
-    foreach ($directory in @('backend', 'config', 'docs')) {
+    foreach ($directory in @('backend', 'config')) {
         New-Item -ItemType Directory -Force -Path (Join-Path $output $directory) | Out-Null
     }
     Copy-Item -LiteralPath (Join-Path $taskRoot 'backend\EnterpriseTester.jar') -Destination (Join-Path $output 'backend') -Force
     Copy-Item -LiteralPath (Join-Path $taskRoot 'backend\backend.json') -Destination (Join-Path $output 'backend') -Force
     Copy-Item -LiteralPath (Join-Path $taskRoot 'config\server.example.json') -Destination (Join-Path $output 'config') -Force
     Copy-Item -LiteralPath (Join-Path $taskRoot 'README.md') -Destination $output -Force
-    Copy-Item -Path (Join-Path $taskRoot 'docs\*') -Destination (Join-Path $output 'docs') -Force
     if ($rid.StartsWith('win-')) {
         Copy-Item -Path (Join-Path $taskRoot '*.bat') -Destination $output -Force
         Compress-Archive -LiteralPath $output -DestinationPath (Join-Path $taskRoot "artifacts\EnterpriseTesterServer-$rid.zip") -Force
@@ -38,6 +37,10 @@ foreach ($rid in $Runtimes) {
         }
     }
     New-Item -ItemType Directory -Force -Path $published | Out-Null
+    $obsoleteReport = Join-Path $published 'docs\verification.md'
+    if (Test-Path -LiteralPath $obsoleteReport -PathType Leaf) {
+        Remove-Item -LiteralPath $obsoleteReport
+    }
     Get-ChildItem -LiteralPath $output | Copy-Item -Destination $published -Recurse -Force
     Write-Output "Ready: $published"
 }

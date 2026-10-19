@@ -6,6 +6,7 @@ runtime/
 logs/
 data/
 backend/*
+!backend/EnterpriseTester.jar
 !backend/backend.json
 !backend/README.md
 config/server.json

@@ -4,11 +4,11 @@
 
 ## Быстрый запуск Windows
 
-Git содержит исходники запускателя и небольшой `backend/backend.json` с контрольной суммой версии Java backend. Сам JAR (около 77 МБ) в Git не хранится.
+Git содержит исходники запускателя, подготовленный `backend/EnterpriseTester.jar` и `backend/backend.json` с контрольной суммой. После полного клонирования репозитория серверная часть уже на месте; отдельно переносить JAR или выполнять `import-backend` для первого запуска не требуется.
 
 Для развёртывания переносите готовый пакет из `artifacts/EnterpriseTesterServer-win-x64.zip` либо `artifacts/EnterpriseTesterServer-linux-*.tar.gz`: он уже содержит и запускатель, и `backend/EnterpriseTester.jar`, и `backend/backend.json`. Импорт web-проекта на целевом устройстве не нужен.
 
-Если запускать именно клонированные исходники, один раз скопируйте `backend/EnterpriseTester.jar` из соответствующего готового пакета в каталог `backend` клона. Версии JAR и `backend.json` должны совпадать. Проверка без Java и БД: `dotnet run --project EnterpriseTester.ServerHost -- verify-backend`. Один `git clone` не доставляет исполняемый Java backend. Пакеты сборки передаются отдельно от Git (например, как артефакты релиза).
+Проверка комплектности backend после клонирования без Java и БД: `dotnet run --project EnterpriseTester.ServerHost -- verify-backend`. JAR занимает около 77 МБ; дождитесь полного завершения загрузки репозитория. Для запуска из исходников нужен .NET 10 SDK; готовые переносимые пакеты уже включают .NET.
 
 Рабочий `config/server.json`, пароли, изображения и установленные runtime в Git не хранятся: на другом устройстве нужно настроить подключение к существующей БД.
 
@@ -90,6 +90,6 @@ dotnet run --project EnterpriseTester.ServerHost -c Release -- import-backend --
 ./scripts/Publish.ps1
 ```
 
-Импорт нужен при намеренном обновлении Java backend. Он читает JAR, копирует в эту папку и удаляет встроенные параметры доступа к БД из копии. Исходный JAR не меняется. Контрольная сумма фиксируется в backend/backend.json и проверяется при запуске. После обновления включайте новый backend.json в коммит и пересобирайте переносимые пакеты командой `scripts/Publish.ps1`. JAR остаётся в пакетах сборки, а не в истории Git. Не подменяйте JAR во время работы: остановите сервер, выполните импорт и запустите заново. Сохраняйте config, data и runtime при обновлении пакета.
+Импорт нужен при намеренном обновлении Java backend. Он читает JAR, копирует в эту папку и удаляет встроенные параметры доступа к БД из копии. Исходный JAR не меняется. Контрольная сумма фиксируется в backend/backend.json и проверяется при запуске. После обновления включайте JAR и backend.json вместе в один коммит и пересобирайте переносимые пакеты командой `scripts/Publish.ps1`. Не подменяйте JAR во время работы: остановите сервер, выполните импорт и запустите заново. Сохраняйте config, data и runtime при обновлении пакета.
 
-Команды CLI: start, configure, create-config, setup-local (Windows: импорт ранее сохранённого DPAPI-пароля desktop без его изменения), doctor, status, stop, install-java, import-backend, verify-backend. Последняя проверяет комплектность и контрольную сумму JAR без Java и подключения к БД. `--root` задаёт папку пакета; `--config` — другой конфиг; `--non-interactive` отключает чтение команд из консоли. Журналы находятся в logs. Результаты фактических проверок — docs/verification.md.
+Команды CLI: start, configure, create-config, setup-local (Windows: импорт ранее сохранённого DPAPI-пароля desktop без его изменения), doctor, status, stop, install-java, import-backend, verify-backend. Последняя проверяет комплектность и контрольную сумму JAR без Java и подключения к БД. `--root` задаёт папку пакета; `--config` — другой конфиг; `--non-interactive` отключает чтение команд из консоли. Журналы находятся в logs.

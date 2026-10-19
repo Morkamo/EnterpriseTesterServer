@@ -69,8 +69,8 @@ internal static class BackendImport
             throw new FileNotFoundException(
                 "Не найден backend JAR: "
                     + jar
-                    + ". Git не содержит исполняемый backend. Скопируйте backend/EnterpriseTester.jar"
-                    + " из соответствующего готового пакета сервера; backend/backend.json содержит его контрольную сумму."
+                    + ". Получите backend/EnterpriseTester.jar из репозитория или готового пакета сервера;"
+                    + " backend/backend.json содержит его контрольную сумму."
                     + " Для собственного JAR выполните import-backend --source файл.jar.",
                 jar
             );
